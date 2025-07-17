@@ -34,6 +34,8 @@
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+            padding-top: calc(env(safe-area-inset-top) + 15px);
         }
         
         .mobile-header h1 {
@@ -81,6 +83,8 @@
             margin: 0;
             background: white;
             min-height: calc(100vh - 60px);
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: calc(env(safe-area-inset-bottom) + 20px);
         }
         
         .section {
@@ -122,18 +126,18 @@
             font-weight: 500;
         }
         
-        .input-field {
+        .input-field, .textarea-field {
             width: 100%;
             padding: 10px;
             border: 2px solid #ddd;
             border-radius: 8px;
-            font-size: 1em;
+            font-size: 16px; /* 16px for iOS zoom prevention */
             background: white;
             color: #333;
             transition: border-color 0.3s;
         }
         
-        .input-field:focus {
+        .input-field:focus, .textarea-field:focus {
             outline: none;
             border-color: #667eea;
         }
@@ -251,6 +255,11 @@
             border-radius: 15px;
         }
         
+        .slider-container {
+            padding: 10px 0;
+            position: relative;
+        }
+        
         .slider {
             width: 100%;
             height: 40px;
@@ -290,12 +299,6 @@
         
         .slider::-moz-range-thumb:active {
             cursor: grabbing;
-        }
-        
-        /* 슬라이더 터치 영역 확대 */
-        .slider-container {
-            padding: 10px 0;
-            position: relative;
         }
         
         .slider-value {
@@ -487,21 +490,6 @@
             margin-top: 10px;
         }
         
-        .achievement-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 10px 0;
-        }
-        
-        .achievement-item {
-            background: rgba(255,255,255,0.1);
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-        
         .reflection-section {
             background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
             border-radius: 12px;
@@ -520,20 +508,8 @@
         }
         
         .textarea-field {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1em;
-            background: white;
-            color: #333;
             resize: vertical;
             min-height: 80px;
-        }
-        
-        .textarea-field:focus {
-            outline: none;
-            border-color: #667eea;
         }
         
         .final-message {
@@ -642,7 +618,6 @@
             margin: 20px 0;
         }
         
-        /* 터치 피드백 개선 */
         .touch-feedback {
             position: relative;
             overflow: hidden;
@@ -666,33 +641,12 @@
             height: 100px;
         }
         
-        /* 스크롤 최적화 */
-        .container {
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        /* 입력 필드 확대 방지 */
-        .input-field, .textarea-field {
-            font-size: 16px;
-        }
-        
-        /* 안전 영역 대응 */
-        .mobile-header {
-            padding-top: calc(env(safe-area-inset-top) + 15px);
-        }
-        
-        .container {
-            padding-bottom: calc(env(safe-area-inset-bottom) + 20px);
-        }
-        
-        /* 다크모드 지원 */
         @media (prefers-color-scheme: dark) {
             .input-field, .textarea-field {
                 background: #2d3748;
                 color: white;
                 border-color: #4a5568;
             }
-            
             .game-card {
                 background: #2d3748;
                 color: white;
@@ -712,7 +666,6 @@
     </div>
 
     <div class="container">
-        <!-- 플레이어 정보 -->
         <div class="section">
             <div class="player-info">
                 <h3 class="section-title">⚔️ 플레이어 정보</h3>
@@ -731,7 +684,6 @@
             </div>
         </div>
 
-        <!-- 미션 목표 -->
         <div class="section">
             <div class="mission-box">
                 <h3 class="section-title">🎯 미션 목표</h3>
@@ -744,7 +696,6 @@
             </div>
         </div>
 
-        <!-- 아이스브레이크 -->
         <div class="section">
             <div class="game-section">
                 <h3 class="section-title">🎮 아이스브레이크</h3>
@@ -841,7 +792,6 @@
 
         <div class="section-divider"></div>
 
-        <!-- 패치 1: 예배하기 -->
         <div class="section">
             <div class="patch-card">
                 <h3 class="patch-title">🏛️ 패치 1: 예배하기</h3>
@@ -849,10 +799,10 @@
                 
                 <div class="verse-box">
                     <strong>📖 마태복음 1:22-23</strong><br><br>
-                    "이 모든 일이 일어난 것은... 그의 이름을 
-                    <input type="text" class="inline-input" id="verse4" placeholder="임마누엘"> 
+                    "이 모든 일이 일어난 것은... 그의 이름을 
+                    <input type="text" class="inline-input" id="verse4" placeholder="임마누엘"> 
                     이라고 할 것이다<br>
-                    (임마누엘은 '<input type="text" class="inline-input" id="verse5" placeholder="하나님이 우리와 함께 계시다" style="width: 200px;>'는 뜻)"
+                    (임마누엘은 '<input type="text" class="inline-input" id="verse5" placeholder="하나님이 우리와 함께 계시다" style="width: 200px;">'는 뜻)"
                 </div>
                 
                 <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; margin: 10px 0;">
@@ -881,7 +831,6 @@
             </div>
         </div>
 
-        <!-- 패치 2: 성경읽기 -->
         <div class="section">
             <div class="patch-card patch-2">
                 <h3 class="patch-title">📚 패치 2: 성경읽기</h3>
@@ -897,8 +846,8 @@
                 
                 <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; margin: 10px 0;">
                     <strong>Q: 성경읽기는 의무? 특권?</strong><br><br>
-                    A: <input type="text" class="inline-input" id="duty1" placeholder="의무">이자 
-                    <input type="text" class="inline-input" id="privilege1" placeholder="특권">, 
+                    A: <input type="text" class="inline-input" id="duty1" placeholder="의무">이자 
+                    <input type="text" class="inline-input" id="privilege1" placeholder="특권">, 
                     결국은 <input type="text" class="inline-input" id="finally1" placeholder="특권">!
                 </div>
                 
@@ -909,7 +858,6 @@
             </div>
         </div>
 
-        <!-- 패치 3: 기도하기 -->
         <div class="section">
             <div class="patch-card patch-3">
                 <h3 class="patch-title">🙏 패치 3: 기도하기</h3>
@@ -968,7 +916,6 @@
 
         <div class="section-divider"></div>
 
-        <!-- 개인 맞춤 설정 -->
         <div class="section">
             <h3 class="section-title">🛠️ 나만의 패치 설정</h3>
             
@@ -1034,7 +981,6 @@
             </div>
         </div>
 
-        <!-- 보스 대결 -->
         <div class="section">
             <div class="boss-battle">
                 <h3>👹 최종 보스 대결</h3>
@@ -1087,7 +1033,6 @@
             </div>
         </div>
 
-        <!-- 7일 도전 -->
         <div class="section">
             <div class="challenge-section">
                 <h3 class="section-title">🗓️ 7일 연속 퀘스트</h3>
@@ -1154,7 +1099,6 @@
             </div>
         </div>
 
-        <!-- 개인 소감 -->
         <div class="section">
             <div class="reflection-section">
                 <h3 class="section-title">📝 개인 소감</h3>
@@ -1183,7 +1127,6 @@
             </div>
         </div>
 
-        <!-- 최종 메시지 -->
         <div class="section">
             <div class="final-message">
                 <h2>🎮 QUEST 1 완료! 🎮</h2>
@@ -1198,27 +1141,23 @@
                 
                 <p style="font-style: italic; margin-top: 20px;">
                     "당신을 위해 이미 목숨을 내놓으신 하나님이<br>
-                    여러분과 함께 하십니다."
+                    여러분이 함께 하십니다."
                 </p>
                 
                 <button class="btn touch-feedback">🚀 다음 퀘스트로!</button>
             </div>
         </div>
 
-        <!-- 푸터 -->
         <div style="background: #2d3436; color: white; padding: 20px; text-align: center; margin-top: 0;">
             <p style="font-size: 0.9em;"><strong>📚 참고:</strong> 《푸른바람이 너와 함께해》(서지성 저)</p>
             <p style="font-size: 0.8em; margin-top: 8px;">🎮 v2.0 Mobile | 2024</p>
         </div>
     </div>
 
-    <!-- 진행도 표시 -->
     <div class="progress-indicator" id="progressIndicator">0%</div>
 
-    <!-- 토스트 알림 -->
     <div class="toast" id="toast"></div>
 
-    <!-- 로딩 -->
     <div class="loading" id="loading">
         <div class="spinner"></div>
         <p>동기화 중...</p>
@@ -1267,49 +1206,29 @@
 
         // 전역 공유 모드 자동 활성화
         function enableGlobalSharing() {
-            // 모든 입력 필드에 공유 스타일 적용
-            inputFields.forEach(id => {
+            const addSharedListener = (id, eventType) => {
                 const element = document.getElementById(id);
                 if (element) {
                     element.classList.add('shared-input');
-                    element.addEventListener('input', syncGlobalData);
-                    element.addEventListener('change', syncGlobalData);
+                    element.addEventListener(eventType, syncGlobalData);
                 }
-            });
+            };
 
-            checkboxFields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.classList.add('shared-input');
-                    element.addEventListener('change', syncGlobalData);
-                }
-            });
+            inputFields.forEach(id => addSharedListener(id, 'input'));
+            checkboxFields.forEach(id => addSharedListener(id, 'change'));
+            sliderFields.forEach(id => addSharedListener(id, 'input'));
 
-            sliderFields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.classList.add('shared-input');
-                    element.addEventListener('input', syncGlobalData);
-                    element.addEventListener('change', syncGlobalData);
-                }
-            });
-
-            // 라디오 버튼
             radioFields.forEach(name => {
-                const elements = document.querySelectorAll(`input[name="${name}"]`);
-                elements.forEach(element => {
+                document.querySelectorAll(`input[name="${name}"]`).forEach(element => {
                     element.addEventListener('change', syncGlobalData);
                 });
             });
 
-            // 페이지 로드 시 기존 데이터 불러오기
             loadGlobalData();
-            
-            // 정기적으로 데이터 동기화
             syncInterval = setInterval(loadGlobalData, 2000);
         }
 
-        // 전역 데이터 동기화
+        // 전역 데이터 동기화 (localStorage에 저장)
         function syncGlobalData() {
             const data = gatherAllData();
             data.timestamp = new Date().getTime();
@@ -1320,94 +1239,68 @@
         function gatherAllData() {
             const data = {};
             
-            // 텍스트 입력 필드
-            inputFields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    data[id] = element.value;
-                }
-            });
-
-            // 체크박스 필드
-            checkboxFields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    data[id] = element.checked;
-                }
-            });
-
-            // 라디오 버튼
+            inputFields.forEach(id => { data[id] = document.getElementById(id)?.value; });
+            checkboxFields.forEach(id => { data[id] = document.getElementById(id)?.checked; });
+            sliderFields.forEach(id => { data[id] = document.getElementById(id)?.value; });
             radioFields.forEach(name => {
                 const checked = document.querySelector(`input[name="${name}"]:checked`);
-                if (checked) {
-                    data[name] = checked.value;
-                }
-            });
-
-            // 슬라이더
-            sliderFields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    data[id] = element.value;
-                }
+                if (checked) data[name] = checked.value;
             });
 
             return data;
         }
 
-        // 전역 데이터 로드
+        // 전역 데이터 로드 (localStorage에서 불러오기)
         function loadGlobalData() {
             const savedData = localStorage.getItem(GLOBAL_STORAGE_KEY);
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                let hasChanges = false;
-                
-                // 텍스트 입력 필드 복원
-                inputFields.forEach(id => {
-                    const element = document.getElementById(id);
-                    if (element && data[id] !== undefined && element.value !== data[id]) {
-                        element.value = data[id];
-                        hasChanges = true;
-                    }
-                });
+            if (!savedData) return;
 
-                // 체크박스 필드 복원
-                checkboxFields.forEach(id => {
-                    const element = document.getElementById(id);
-                    if (element && data[id] !== undefined && element.checked !== data[id]) {
-                        element.checked = data[id];
-                        updateCheckboxStyle(element);
-                        hasChanges = true;
-                    }
-                });
+            const data = JSON.parse(savedData);
+            let hasChanges = false;
 
-                // 라디오 버튼 복원
-                radioFields.forEach(name => {
-                    if (data[name]) {
-                        const currentChecked = document.querySelector(`input[name="${name}"]:checked`);
-                        const shouldBeChecked = document.querySelector(`input[name="${name}"][value="${data[name]}"]`);
-                        if (shouldBeChecked && (!currentChecked || currentChecked.value !== data[name])) {
-                            shouldBeChecked.checked = true;
-                            hasChanges = true;
-                        }
-                    }
-                });
-
-                // 슬라이더 복원
-                sliderFields.forEach(id => {
-                    const element = document.getElementById(id);
-                    if (element && data[id] !== undefined && element.value !== data[id]) {
-                        element.value = data[id];
-                        updateStatBar(id, data[id]);
-                        updateSliderValue(id, data[id]);
-                        hasChanges = true;
-                    }
-                });
-
-                // XP 업데이트
-                if (hasChanges) {
-                    updateTotalXP();
+            const updateField = (id, value) => {
+                const element = document.getElementById(id);
+                if (element && element.value !== value) {
+                    element.value = value;
+                    hasChanges = true;
                 }
+            };
+
+            const updateCheckbox = (id, checked) => {
+                const element = document.getElementById(id);
+                if (element && element.checked !== checked) {
+                    element.checked = checked;
+                    updateCheckboxStyle(element);
+                    hasChanges = true;
+                }
+            };
+            
+            const updateSlider = (id, value) => {
+                const element = document.getElementById(id);
+                if (element && element.value !== value) {
+                    element.value = value;
+                    updateStatBar(id, value);
+                    updateSliderValue(id, value);
+                    hasChanges = true;
+                }
+            };
+
+            const updateRadio = (name, value) => {
+                 const shouldBeChecked = document.querySelector(`input[name="${name}"][value="${value}"]`);
+                 if (shouldBeChecked && !shouldBeChecked.checked) {
+                    shouldBeChecked.checked = true;
+                    hasChanges = true;
+                 }
+            };
+
+            inputFields.forEach(id => data[id] !== undefined && updateField(id, data[id]));
+            checkboxFields.forEach(id => data[id] !== undefined && updateCheckbox(id, data[id]));
+            sliderFields.forEach(id => data[id] !== undefined && updateSlider(id, data[id]));
+            radioFields.forEach(name => data[name] !== undefined && updateRadio(name, data[name]));
+
+            if (hasChanges) {
+                updateTotalXP();
+                updateProgressIndicator();
             }
         }
 
@@ -1415,382 +1308,105 @@
         function updateStatBar(statId, value) {
             const fillId = statId.replace('-stat', '-fill');
             const fillBar = document.getElementById(fillId);
-            if (fillBar) {
-                fillBar.style.width = (value * 10) + '%';
-            }
+            if (fillBar) fillBar.style.width = (value * 10) + '%';
         }
 
         // 슬라이더 값 표시 업데이트
         function updateSliderValue(statId, value) {
             const valueId = statId.replace('-stat', '-value');
             const valueDisplay = document.getElementById(valueId);
-            if (valueDisplay) {
-                valueDisplay.textContent = value;
-            }
+            if (valueDisplay) valueDisplay.textContent = value;
         }
 
         // 체크박스 스타일 업데이트
         function updateCheckboxStyle(checkbox) {
             const li = checkbox.closest('li') || checkbox.closest('.challenge-day');
             if (li) {
-                if (checkbox.checked) {
-                    li.style.background = 'rgba(76, 175, 80, 0.3)';
-                } else {
-                    li.style.background = '';
-                }
+                li.style.background = checkbox.checked ? 'rgba(76, 175, 80, 0.3)' : '';
             }
         }
 
         // 총 XP 업데이트
         function updateTotalXP() {
-            const xpValues = [10, 15, 20, 10, 25, 15, 30];
-            let totalXP = 0;
-            
-            for (let i = 1; i <= 7; i++) {
-                const checkbox = document.getElementById(`day${i}`);
-                if (checkbox && checkbox.checked) {
-                    totalXP += xpValues[i - 1];
-                }
-            }
-            
+            const xpValues = { day1: 10, day2: 15, day3: 20, day4: 10, day5: 25, day6: 15, day7: 30 };
+            let totalXP = Object.keys(xpValues).reduce((sum, id) => {
+                return sum + (document.getElementById(id)?.checked ? xpValues[id] : 0);
+            }, 0);
             document.getElementById('total-xp').textContent = totalXP;
-            updateProgressIndicator();
         }
 
         // 진행도 업데이트
         function updateProgressIndicator() {
-            const totalFields = inputFields.length + checkboxFields.length;
+            const allElements = [...inputFields, ...checkboxFields];
+            const totalFields = allElements.length;
             let filledFields = 0;
             
-            inputFields.forEach(id => {
+            allElements.forEach(id => {
                 const element = document.getElementById(id);
-                if (element && element.value.trim() !== '') {
+                if (!element) return;
+                if (element.type === 'checkbox' && element.checked) {
+                    filledFields++;
+                } else if (element.type !== 'checkbox' && element.value.trim() !== '') {
                     filledFields++;
                 }
             });
             
-            checkboxFields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element && element.checked) {
-                    filledFields++;
-                }
-            });
-            
-            const progress = Math.round((filledFields / totalFields) * 100);
+            const progress = totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0;
             document.getElementById('progressIndicator').textContent = progress + '%';
         }
 
         // 온라인 사용자 수 시뮬레이션
         function updateOnlineUsers() {
-            // 실제 구현에서는 서버에서 실제 사용자 수를 가져와야 함
-            userCount = Math.floor(Math.random() * 5) + 1; // 1-5명 시뮬레이션
+            userCount = Math.floor(Math.random() * 5) + 2; // 2-6명 시뮬레이션
             document.getElementById('onlineUsers').textContent = `👥 접속자: ${userCount}명`;
         }
 
-        // 초기화
+        // 초기화 함수
         function initialize() {
             // 오늘 날짜 자동 설정
-            const today = new Date().toISOString().split('T')[0];
             const startDateInput = document.getElementById('startDate');
-            if (startDateInput) {
-                startDateInput.value = today;
+            if (startDateInput && !startDateInput.value) {
+                startDateInput.value = new Date().toISOString().split('T')[0];
             }
             
-            // 전역 공유 모드 활성화
             enableGlobalSharing();
             
-            // 이벤트 리스너 등록
-            
-            // 슬라이더 이벤트 (개선된 버전)
+            // UI 업데이트를 위한 이벤트 리스너들
             sliderFields.forEach(id => {
                 const element = document.getElementById(id);
                 if (element) {
-                    element.addEventListener('input', function() {
-                        updateStatBar(id, this.value);
-                        updateSliderValue(id, this.value);
+                    element.addEventListener('input', () => {
+                        updateStatBar(id, element.value);
+                        updateSliderValue(id, element.value);
                         updateProgressIndicator();
-                    });
-                    
-                    // 터치 이벤트 처리
-                    element.addEventListener('touchstart', function(e) {
-                        e.preventDefault();
-                        this.focus();
-                    });
-                    
-                    element.addEventListener('touchmove', function(e) {
-                        e.preventDefault();
                     });
                 }
             });
 
-            // 체크박스 이벤트
             checkboxFields.forEach(id => {
                 const element = document.getElementById(id);
                 if (element) {
-                    element.addEventListener('change', function() {
-                        updateCheckboxStyle(this);
-                        if (id.startsWith('day')) {
-                            updateTotalXP();
-                        }
-                        updateProgressIndicator();
-                    });
-                }
-            });
-
-            // 입력 필드 이벤트
-            inputFields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.addEventListener('input', updateProgressIndicator);
-                }
-            });
-
-            // 미션 목표 클릭 이벤트
-            document.querySelectorAll('.objectives li').forEach(item => {
-                item.addEventListener('click', function() {
-                    const checkbox = this.querySelector('input[type="checkbox"]') || 
-                                    document.createElement('input');
-                    if (!this.querySelector('input[type="checkbox"]')) {
-                        checkbox.type = 'checkbox';
-                        checkbox.className = 'checkbox';
-                        this.insertBefore(checkbox, this.firstChild);
-                    }
-                    checkbox.checked = !checkbox.checked;
-                    updateCheckboxStyle(checkbox);
-                    updateProgressIndicator();
-                });
-            });
-
-            // 초기 상태 업데이트
-            sliderFields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    updateSliderValue(id, element.value);
-                }
-            });
-            
-            updateTotalXP();
-            updateProgressIndicator();
-            updateOnlineUsers();
-            
-            // 온라인 사용자 수 주기적 업데이트
-            setInterval(updateOnlineUsers, 10000);
-            
-            showToast('🌐 모든 사용자가 공유하는 공간에 접속했습니다!');
-        }
-
-        // 페이지 로드 시 초기화
-        window.addEventListener('load', initialize);
-
-        // 페이지 벗어나기 전 데이터 저장
-        window.addEventListener('beforeunload', function() {
-            syncGlobalData();
-            if (syncInterval) {
-                clearInterval(syncInterval);
-            }
-        });
-
-        // 터치 피드백 개선
-        document.addEventListener('touchstart', function(e) {
-            if (e.target.classList.contains('touch-feedback')) {
-                e.target.style.transform = 'scale(0.95)';
-            }
-        });
-
-        document.addEventListener('touchend', function(e) {
-            if (e.target.classList.contains('touch-feedback')) {
-                setTimeout(() => {
-                    e.target.style.transform = '';
-                }, 150);
-            }
-        });
-
-        // 스크롤 시 헤더 숨기기/보이기
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const header = document.querySelector('.mobile-header');
-            
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                header.style.transform = 'translateY(0)';
-            }
-            lastScrollTop = scrollTop;
-        });
-
-        // 인풋 포커스 시 키보드 대응
-        document.addEventListener('focusin', function(e) {
-            if (e.target.matches('.input-field, .textarea-field')) {
-                setTimeout(() => {
-                    e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
-            }
-        });
-
-        // 슬라이더 터치 최적화
-        document.addEventListener('touchstart', function(e) {
-            if (e.target.classList.contains('slider')) {
-                e.target.style.cursor = 'grabbing';
-            }
-        });
-
-        document.addEventListener('touchend', function(e) {
-            if (e.target.classList.contains('slider')) {
-                e.target.style.cursor = 'grab';
-            }
-        });
-
-        // 오프라인 지원을 위한 데이터 캐싱
-        function cacheData() {
-            const data = gatherAllData();
-            localStorage.setItem(GLOBAL_STORAGE_KEY + '_backup', JSON.stringify(data));
-        }
-
-        // 정기적으로 데이터 백업
-        setInterval(cacheData, 30000); // 30초마다 백업
-    </script>        element.checked = data[id];
+                    element.addEventListener('change', () => {
                         updateCheckboxStyle(element);
-                    }
-                });
-
-                // 라디오 버튼 복원
-                radioFields.forEach(name => {
-                    if (data[name]) {
-                        const element = document.querySelector(`input[name="${name}"][value="${data[name]}"]`);
-                        if (element) {
-                            element.checked = true;
-                        }
-                    }
-                });
-
-                // 슬라이더 복원
-                sliderFields.forEach(id => {
-                    const element = document.getElementById(id);
-                    if (element && data[id] !== undefined) {
-                        element.value = data[id];
-                        updateStatBar(id, data[id]);
-                    }
-                });
-
-                // XP 업데이트
-                updateTotalXP();
-            }
-        }
-
-        // 스탯 바 업데이트
-        function updateStatBar(statId, value) {
-            const fillId = statId.replace('-stat', '-fill');
-            const fillBar = document.getElementById(fillId);
-            if (fillBar) {
-                fillBar.style.width = (value * 10) + '%';
-            }
-        }
-
-        // 체크박스 스타일 업데이트
-        function updateCheckboxStyle(checkbox) {
-            const li = checkbox.closest('li') || checkbox.closest('.challenge-day');
-            if (li) {
-                if (checkbox.checked) {
-                    li.style.background = 'rgba(76, 175, 80, 0.3)';
-                } else {
-                    li.style.background = '';
-                }
-            }
-        }
-
-        // 총 XP 업데이트
-        function updateTotalXP() {
-            const xpValues = [10, 15, 20, 10, 25, 15, 30];
-            let totalXP = 0;
-            
-            for (let i = 1; i <= 7; i++) {
-                const checkbox = document.getElementById(`day${i}`);
-                if (checkbox && checkbox.checked) {
-                    totalXP += xpValues[i - 1];
-                }
-            }
-            
-            document.getElementById('total-xp').textContent = totalXP;
-            updateProgressIndicator();
-        }
-
-        // 진행도 업데이트
-        function updateProgressIndicator() {
-            const totalFields = inputFields.length + checkboxFields.length;
-            let filledFields = 0;
-            
-            inputFields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element && element.value.trim() !== '') {
-                    filledFields++;
-                }
-            });
-            
-            checkboxFields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element && element.checked) {
-                    filledFields++;
-                }
-            });
-            
-            const progress = Math.round((filledFields / totalFields) * 100);
-            document.getElementById('progressIndicator').textContent = progress + '%';
-        }
-
-        // 초기화
-        function initialize() {
-            // 오늘 날짜 자동 설정
-            const today = new Date().toISOString().split('T')[0];
-            const startDateInput = document.getElementById('startDate');
-            if (startDateInput) {
-                startDateInput.value = today;
-            }
-            
-            // 이벤트 리스너 등록
-            
-            // 슬라이더 이벤트
-            sliderFields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.addEventListener('input', function() {
-                        updateStatBar(id, this.value);
+                        if (id.startsWith('day')) updateTotalXP();
                         updateProgressIndicator();
                     });
                 }
             });
 
-            // 체크박스 이벤트
-            checkboxFields.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.addEventListener('change', function() {
-                        updateCheckboxStyle(this);
-                        if (id.startsWith('day')) {
-                            updateTotalXP();
-                        }
-                        updateProgressIndicator();
-                    });
-                }
-            });
-
-            // 입력 필드 이벤트
             inputFields.forEach(id => {
                 const element = document.getElementById(id);
-                if (element) {
-                    element.addEventListener('input', updateProgressIndicator);
-                }
+                if (element) element.addEventListener('input', updateProgressIndicator);
             });
 
-            // 미션 목표 클릭 이벤트
             document.querySelectorAll('.objectives li').forEach(item => {
                 item.addEventListener('click', function() {
-                    const checkbox = this.querySelector('input[type="checkbox"]') || 
-                                    document.createElement('input');
-                    if (!this.querySelector('input[type="checkbox"]')) {
+                    let checkbox = this.querySelector('.checkbox');
+                    if (!checkbox) {
+                        checkbox = document.createElement('input');
                         checkbox.type = 'checkbox';
                         checkbox.className = 'checkbox';
-                        this.insertBefore(checkbox, this.firstChild);
+                        this.prepend(checkbox);
                     }
                     checkbox.checked = !checkbox.checked;
                     updateCheckboxStyle(checkbox);
@@ -1800,68 +1416,4 @@
 
             // 초기 상태 업데이트
             updateTotalXP();
-            updateProgressIndicator();
-        }
-
-        // 페이지 로드 시 초기화
-        window.addEventListener('load', initialize);
-
-        // 페이지 벗어나기 전 데이터 저장
-        window.addEventListener('beforeunload', function() {
-            if (currentRoom) {
-                syncData();
-            }
-            if (syncInterval) {
-                clearInterval(syncInterval);
-            }
-        });
-
-        // 터치 피드백 개선
-        document.addEventListener('touchstart', function(e) {
-            if (e.target.classList.contains('touch-feedback')) {
-                e.target.style.transform = 'scale(0.95)';
-            }
-        });
-
-        document.addEventListener('touchend', function(e) {
-            if (e.target.classList.contains('touch-feedback')) {
-                setTimeout(() => {
-                    e.target.style.transform = '';
-                }, 150);
-            }
-        });
-
-        // 스크롤 시 헤더 숨기기/보이기
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const header = document.querySelector('.mobile-header');
-            
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                header.style.transform = 'translateY(0)';
-            }
-            lastScrollTop = scrollTop;
-        });
-
-        // 인풋 포커스 시 키보드 대응
-        document.addEventListener('focusin', function(e) {
-            if (e.target.matches('.input-field, .textarea-field')) {
-                setTimeout(() => {
-                    e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
-            }
-        });
-
-        // 오프라인 지원을 위한 데이터 캐싱
-        function cacheData() {
-            const data = gatherAllData();
-            localStorage.setItem(STORAGE_KEY + '_backup', JSON.stringify(data));
-        }
-
-        // 정기적으로 데이터 백업
-        setInterval(cacheData, 30000); // 30초마다 백업
-    </script>
-</body>
-</html>
+            updateProgress
