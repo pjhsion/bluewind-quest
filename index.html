@@ -4,392 +4,324 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>푸른나라학교 공략집</title>
-    
-    <!-- Tailwind CSS 로드 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts 로드 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome 아이콘 로드 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* 커스텀 스타일 */
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #1a202c;
-            color: #e2e8f0;
+            background-color: #EBF4FF; /* 하늘색 배경 */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2392A9C7' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
-        .font-game {
-            font-family: 'Press Start 2P', cursive;
+        .jua-font {
+            font-family: 'Jua', sans-serif;
         }
-        .nes-balloon {
-            position: relative;
-            padding: 1rem;
-            border: 4px solid #a0aec0;
+        .pixel-border {
+            border: 4px solid #4A5568;
+            background-color: white;
+            box-shadow: 8px 8px 0px #4A5568;
             border-radius: 8px;
-            background: #2d3748;
+            padding: 1.5rem;
         }
-        .nes-balloon.from-left::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: -24px;
-            transform: translateY(-50%);
-            border: 12px solid transparent;
-            border-right-color: #a0aec0;
-        }
-        .nes-btn {
-            font-family: 'Press Start 2P', cursive;
-            background-color: #4299e1;
-            color: white;
-            border: 2px solid #2b6cb0;
-            box-shadow: 4px 4px 0 #2b6cb0;
-            transition: all 0.1s ease-in-out;
-            padding: 0.75rem 1rem;
+        .btn-pixel {
+            font-family: 'Jua', sans-serif;
+            padding: 12px 24px;
             text-align: center;
+            color: white;
+            background-color: #4299E1;
+            border: 2px solid #1A365D;
+            border-radius: 8px;
+            box-shadow: inset -3px -3px 0px 0px #2B6CB0;
+            transition: all 0.1s ease-in-out;
+            cursor: pointer;
         }
-        .nes-btn:hover {
-            background-color: #63b3ed;
-            box-shadow: 2px 2px 0 #2b6cb0;
-            transform: translate(2px, 2px);
+        .btn-pixel:hover {
+            background-color: #3182CE;
         }
-        .nes-btn:active {
-            background-color: #3182ce;
-            box-shadow: none;
-            transform: translate(4px, 4px);
+        .btn-pixel:active {
+            transform: translateY(2px);
+            box-shadow: inset -1px -1px 0px 0px #2B6CB0;
         }
-        .nes-btn.is-success {
-            background-color: #48bb78;
-            border-color: #2f855a;
-            box-shadow: 4px 4px 0 #2f855a;
+        .tab-btn.active {
+            background-color: #F6E05E;
+            color: #975A16;
+            border-color: #975A16;
+            box-shadow: inset -3px -3px 0px 0px #D69E2E;
         }
-        .nes-btn.is-warning {
-            background-color: #f56565;
-            border-color: #c53030;
-            box-shadow: 4px 4px 0 #c53030;
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
         }
-        .nes-card {
-            background-color: #2d3748;
-            border: 4px solid #a0aec0;
-            box-shadow: 8px 8px 0 rgba(0,0,0,0.2);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .nes-input {
+            border: 4px solid #4A5568;
+            border-radius: 8px;
+            padding: 0.75rem;
+            width: 100%;
+            background-color: #F7FAFC;
         }
         .nes-textarea {
-            background-color: #2d3748;
-            border: 2px solid #718096;
-            color: #e2e8f0;
-            padding: 0.5rem 1rem;
+             border: 4px solid #4A5568;
+             border-radius: 8px;
+             padding: 0.75rem;
+             width: 100%;
+             background-color: #F7FAFC;
+             resize: vertical;
         }
-        .story-step { display: none; }
-        .story-step.active { display: block; }
-        .choice-btn { margin-top: 0.5rem; width: 100%; }
-        #bible-modal {
-            transition: opacity 0.3s ease;
+        .quest-card {
+            background-color: #FEFCBF; /* 양피지 느낌 */
+            border: 4px solid #D69E2E;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .character-select-box {
+            cursor: pointer;
+            border: 4px solid transparent;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .character-select-box.selected {
+            border-color: #4299E1;
+            background-color: #EBF8FF;
+            transform: scale(1.05);
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-200">
+<body class="text-gray-800">
 
-    <!-- 앱 컨테이너 -->
-    <div id="app-container" class="max-w-2xl mx-auto p-4 md:p-8">
-        
-        <header class="text-center mb-8">
-            <h1 class="font-game text-2xl md:text-4xl text-yellow-300 drop-shadow-[4px_4px_0_rgba(0,0,0,0.4)]">푸른나라학교</h1>
-            <p class="font-game text-sm md:text-lg text-white mt-2">공 략 집</p>
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        <!-- 헤더 -->
+        <header class="text-center mb-12">
+            <img src="https://storage.googleapis.com/gemini-prod/images/40371444-51a8-433b-8263-5490457f59d0.png" alt="푸른나라학교 모험 시작" class="mx-auto mb-4 rounded-lg shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x300/EBF4FF/4A5568?text=모험의+시작';">
+            <h1 class="text-4xl md:text-5xl font-bold text-blue-800 mb-2 jua-font">푸른나라학교 공략집</h1>
+            <p class="text-xl md:text-2xl text-yellow-700 jua-font">푸른 바람과 함께, 내 삶의 모험을 시작해!</p>
         </header>
 
-        <!-- 캐릭터 생성 (초기 화면) -->
-        <div id="character-creation" class="nes-card p-6 mb-8">
-            <h2 class="font-game text-xl mb-4 text-center">PRESS START</h2>
-            <p class="text-center mb-6">푸른 바람과 함께, 내 삶의 모험을 시작해!</p>
-            <div class="mb-4">
-                <label for="nickname" class="font-game text-sm">NICKNAME:</label>
-                <input type="text" id="nickname" class="w-full mt-1 p-2 bg-gray-700 border-2 border-gray-500 rounded text-white" placeholder="용사님의 이름은?">
-            </div>
-            <button id="start-btn" class="nes-btn w-full">모험 시작하기</button>
-        </div>
+        <!-- Prologue: 캐릭터 생성 -->
+        <section id="prologue" class="mb-16">
+            <h2 class="text-3xl mb-6 text-center jua-font text-green-700">⚔️ Prologue: 캐릭터 생성 ⚔️</h2>
+            <div class="pixel-border">
+                <h3 class="text-2xl font-bold mb-6 jua-font text-center">나만의 모험가를 선택하고 정보를 입력하세요!</h3>
+                
+                <!-- 캐릭터 선택 -->
+                <div class="mb-8">
+                    <h4 class="jua-font text-xl text-center mb-4">1. 마음에 드는 모험가를 선택하세요.</h4>
+                    <div id="character-selection" class="grid grid-cols-3 sm:grid-cols-5 gap-4">
+                        <img src="https://storage.googleapis.com/gemini-prod/images/841005b6-7881-4235-98e9-53e722a46580.png" alt="용사 캐릭터" class="character-select-box w-full h-auto" data-char-name="용감한 용사">
+                        <img src="https://storage.googleapis.com/gemini-prod/images/e9914757-9d22-4a00-9679-b1d6f73562e1.png" alt="마법사 캐릭터" class="character-select-box w-full h-auto" data-char-name="지혜로운 마법사">
+                        <img src="https://storage.googleapis.com/gemini-prod/images/73748281-a53f-4091-a67b-2900c436338b.png" alt="궁수 캐릭터" class="character-select-box w-full h-auto" data-char-name="날렵한 궁수">
+                        <img src="https://storage.googleapis.com/gemini-prod/images/a6c27945-3164-42b4-8255-a50e58d4a460.png" alt="도적 캐릭터" class="character-select-box w-full h-auto" data-char-name="재빠른 탐험가">
+                        <img src="https://storage.googleapis.com/gemini-prod/images/42531e2d-30e4-411a-8e2b-2f34964177d7.png" alt="사제 캐릭터" class="character-select-box w-full h-auto" data-char-name="따뜻한 치유사">
+                    </div>
+                </div>
 
-        <!-- 메인 컨텐츠 (게임 시작 후 보임) -->
-        <main id="main-content" class="hidden">
-            <div class="nes-card p-4 sm:p-6">
-                <!-- 스토리 컨테이너 -->
-                <div id="story-container">
-                    <!-- Step 1: 인트로 -->
-                    <div class="story-step active" data-step="1">
-                        <p class="nes-balloon from-left mb-6">안녕, <span id="player-name" class="text-yellow-300 font-bold">용사</span>! '푸른나라학교'에 온 걸 환영해. 지금부터 너의 신앙 능력치를 올려 줄 3가지 퀘스트를 시작할 거야!</p>
-                        <button class="nes-btn w-full next-btn">첫 번째 퀘스트 시작!</button>
-                    </div>
-
-                    <!-- Step 2: 퀘스트 1 인트로 -->
-                    <div class="story-step" data-step="2">
-                        <h2 class="font-game text-lg md:text-xl mb-4 text-cyan-300">QUEST 1: 패치</h2>
-                        <p class="mb-6">깨진 세상에서 우리를 지켜줄 강력한 능력, '패치'를 장착해 보자. 첫 번째 패치는 '예배하기'야.</p>
-                        <button class="nes-btn w-full next-btn">예배 패치 장착하기</button>
-                    </div>
-                    
-                    <!-- Step 3: 예배하기 - 임마누엘 -->
-                    <div class="story-step" data-step="3">
-                        <h3 class="font-game text-base mb-4 text-green-400"><i class="fas fa-church mr-2"></i>Stage 1-1: 예배하기</h3>
-                        <p class="nes-balloon from-left mb-4">예수님의 또 다른 이름이 뭔지 알아? 바로 '임마누엘'이야. '하나님이 우리와 함께 계시다'는 뜻이지. 성경에서 직접 확인해볼까?</p>
-                        <button class="nes-btn is-success w-full bible-verse-btn" data-verse-id="matthew1_23">마태복음 1:23 보기</button>
-                        <button class="nes-btn w-full mt-4 next-btn">다음</button>
-                    </div>
-
-                    <!-- Step 4: 예배하기 - 예수님의 목적 -->
-                    <div class="story-step" data-step="4">
-                        <p class="nes-balloon from-left mb-4">이처럼 우리와 '함께'하길 원하시는 예수님은 이 땅에 왜 오셨을까?</p>
-                        <button class="nes-btn is-success w-full bible-verse-btn" data-verse-id="john10_10">요한복음 10:10 보기</button>
-                        <p class="mt-4 text-center">"나는 양들이 생명을 얻고<br>또 더 <span class="text-yellow-300">넘치게</span> 얻게 하려고 왔다."</p>
-                        <button class="nes-btn w-full mt-4 next-btn">그렇구나!</button>
-                    </div>
-
-                    <!-- Step 5: 예배하기 - 양방향 소통 -->
-                    <div class="story-step" data-step="5">
-                        <p class="nes-balloon from-left mb-4">예배는 바로 이 예수님을 높이는 시간이야. 그런데 예배는 하나님께 일방적으로 보고하는 시간이 아니야. 하나님과 내가 서로 소통하는 '양방향 채널'이지!</p>
-                        <p class="mb-4 text-center font-bold">Q. 그렇다면 '소통하는 예배'에서 우리는 무엇을 할 수 있을까?</p>
-                        <button class="nes-btn choice-btn w-full" data-correct="true">찬양과 기도로 마음을 표현하고, 말씀에 귀 기울이기</button>
-                        <button class="nes-btn choice-btn w-full" data-correct="false">조용히 앉아 있기만 하기</button>
-                        <p id="choice-feedback" class="text-center mt-4 hidden"></p>
-                    </div>
-                    
-                    <!-- Step 6: 용특새 -->
-                    <div class="story-step" data-step="6">
-                        <p class="nes-balloon from-left mb-4">맞아! 예배를 통해 하나님과 소통하면, 깨진 세상이 주는 거짓 위협("넌 안돼", "이번 생은 망했어" 같은...)을 막아낼 수 있어. 바로 '용특새' 패치가 있기 때문이야!</p>
-                        <div class="text-center p-4 border-4 border-dashed border-yellow-300 rounded-lg">
-                            <p class="font-bold text-green-400">"그리스도 안에서 당신은 <span class="text-white">용</span>납되었습니다."</p>
-                            <p class="font-bold text-blue-400">"그리스도 안에서 당신은 <span class="text-white">특</span>별한 존재입니다."</p>
-                            <p class="font-bold text-red-400">"그리스도 안에서 당신은 <span class="text-white">새</span>로운 공동체에 속했습니다."</p>
+                <!-- 모험가 정보 입력 -->
+                <h4 class="jua-font text-xl text-center mb-4">2. 모험가 정보를 완성하세요.</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label for="char-id" class="jua-font text-lg">이름 (ID):</label>
+                            <input type="text" id="char-id" class="nes-input" placeholder="모험가 이름">
                         </div>
-                        <button class="nes-btn is-success w-full mt-4 next-btn">'용특새' 쉴드 장착!</button>
-                    </div>
-                    
-                    <!-- Step 7: 패치 탐구 1 -->
-                    <div class="story-step" data-step="7">
-                         <h4 class="font-game text-base mb-4 text-green-400">패치 탐구 ①</h4>
-                         <div class="space-y-4">
-                            <div>
-                                <label class="text-sm">1. 지금까지 나는 무엇을, 혹은 누구를 예배하며 살았을까? 하나님에 대해 새롭게 알게 된 점이 있다면?</label>
-                                <textarea id="q1-1" class="nes-textarea w-full h-24 mt-1 text-sm" placeholder="자유롭게 생각을 나눠보세요."></textarea>
-                            </div>
-                            <div>
-                                <label class="text-sm">2. 오늘 강의를 통해 나의 '예배'에 대해 가장 도움이 되었거나 도전받은 내용은?</label>
-                                <textarea id="q1-2" class="nes-textarea w-full h-24 mt-1 text-sm" placeholder="한 가지라도 좋아요!"></textarea>
-                            </div>
-                            <div>
-                                <label class="text-sm">3. '예배 패치'를 꾸준히 받기 위한 나만의 계획을 세워보자!</label>
-                                <textarea id="q1-3" class="nes-textarea w-full h-24 mt-1 text-sm" placeholder="예) 주일 예배 10분 전 도착해서 기도로 준비하기"></textarea>
-                            </div>
+                        <div>
+                            <label for="char-guild" class="jua-font text-lg">소속 (GUILD):</label>
+                            <input type="text" id="char-guild" class="nes-input" placeholder="푸른나라 청소년부">
                         </div>
-                        <button class="nes-btn w-full mt-4 next-btn">작성 완료! (다음 패치로)</button>
                     </div>
-
-                    <!-- Quest 1 End & Save -->
-                    <div class="story-step" data-step="8">
-                        <p class="nes-balloon from-left mb-6">좋았어! 첫 번째 퀘스트 '패치'의 모든 스테이지를 완료했어. 너의 성찰과 다짐을 저장해 둘게!</p>
-                        <button id="save-btn" class="nes-btn is-success w-full">공략 저장하고 모험 계속하기</button>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="char-hp" class="jua-font text-lg">HP (마음 상태):</label>
+                            <input type="range" id="char-hp" min="0" max="100" value="75" class="w-full">
+                        </div>
+                        <div>
+                            <label for="char-item" class="jua-font text-lg">갖고 싶은 아이템:</label>
+                            <input type="text" id="char-item" class="nes-input" placeholder="지혜의 책, 용기의 검">
+                        </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </section>
+
+        <!-- QUEST 1: 패치 장착하기 -->
+        <section id="quest1" class="mb-12">
+            <h2 class="text-3xl mb-6 text-center jua-font text-purple-700">📜 QUEST 1: 패치 장착하기</h2>
+            <div class="pixel-border">
+                <div class="mb-6 flex justify-center gap-2 flex-wrap">
+                    <button class="tab-btn btn-pixel active" data-tab="stage1">STAGE 1-1: 예배</button>
+                    <button class="tab-btn btn-pixel" data-tab="stage2">STAGE 1-2: 성경</button>
+                    <button class="tab-btn btn-pixel" data-tab="stage3">STAGE 1-3: 기도</button>
+                </div>
+
+                <!-- STAGE 1-1: 예배하기 -->
+                <div id="stage1" class="tab-content fade-in">
+                    <h3 class="text-2xl font-bold mb-4 jua-font">STAGE 1-1: 예배하기 (공식 채널 접속!)</h3>
+                    <div class="quest-card mb-6">
+                        <p class="font-bold">📖 핵심 말씀 (마 1:22-23)</p>
+                        <p>"...그의 이름을 임마누엘이라고 할 것이다 하신 말씀을 이루려고 하신 것이다 (임마누엘은 번역하면 '하나님이 우리와 함께 계시다'는 뜻이다)"</p>
+                    </div>
+                    <p class="mb-4">예배는 우리와 함께하시는 하나님과 소통하는 공식 채널이자, 세상의 거짓 위협에 맞서는 '용특새' 쉴드를 얻는 시간이에요.</p>
+                    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-md mb-6">
+                        <p class="font-bold mb-2">⚔️ '용특새' 패치로 쉴드 장착!</p>
+                        <button id="yongteuksae-btn" class="bg-yellow-500 text-white py-1 px-3 rounded-full text-sm hover:bg-yellow-600 transition-colors">버튼을 눌러 확인하기</button>
+                        <div id="yongteuksae-details" class="hidden mt-3 space-y-1">
+                            <p class="fade-in">🛡️ **용**납되었습니다.</p>
+                            <p class="fade-in" style="animation-delay: 0.1s;">💖 **특**별한 존재입니다.</p>
+                            <p class="fade-in" style="animation-delay: 0.2s;">👨‍👩‍👧‍👦 **새**로운 공동체에 속했습니다.</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p><strong>Q.</strong> 그동안 나에게 예배는 어떤 시간이었나요? 요즘 나를 힘들게 하는 세상의 '거짓 위협'은 무엇인가요?</p>
+                        <textarea class="nes-textarea h-24" placeholder="솔직한 생각을 적어보세요."></textarea>
+                    </div>
+                </div>
+
+                <!-- STAGE 1-2: 성경 읽기 -->
+                <div id="stage2" class="tab-content hidden fade-in">
+                    <h3 class="text-2xl font-bold mb-4 jua-font">STAGE 1-2: 성경 읽기 (에너지원 꺼내 먹기!)</h3>
+                    <div class="quest-card mb-6">
+                        <p class="font-bold">📖 핵심 말씀 (요 15:5)</p>
+                        <p>"나는 포도나무요 너희는 가지라 그가 내 안에, 내가 그 안에 거하면 사람이 열매를 많이 맺나니 나를 떠나서는 너희가 아무 것도 할 수 없음이라"</p>
+                    </div>
+                    <p class="mb-4">성경 읽기는 '푸른바람의 나라 에너지'가 가득한 냉장고를 열어, 건강한 영양분을 섭취하는 특권이에요!</p>
+                    <div class="space-y-4">
+                        <p><strong>Q.</strong> '성경은 냉장고다'라는 비유가 어떻게 느껴지나요? 솔직하게, 그동안 나의 '신앙 냉장고'는 든든하게 채워져 있었나요, 아니면 텅 비어 있었나요?</p>
+                        <textarea class="nes-textarea h-24" placeholder="나의 '신앙 냉장고' 상태는?"></textarea>
+                    </div>
+                </div>
+
+                <!-- STAGE 1-3: 기도하기 -->
+                <div id="stage3" class="tab-content hidden fade-in">
+                    <h3 class="text-2xl font-bold mb-4 jua-font">STAGE 1-3: 기도하기 (신에게 빨대 꽂기!)</h3>
+                    <div class="quest-card mb-6">
+                        <p class="font-bold">📖 핵심 말씀 (요 8:31-32)</p>
+                        <p>"...너희가 내 말에 거하면 참으로 내 제자가 되고 진리를 알지니 진리가 너희를 자유롭게 하리라"</p>
+                    </div>
+                    <p class="mb-4">기도는 농부이신 하나님과 포도나무이신 예수님께 '빨대'를 꽂고 영양분을 공급받는 것과 같아요. '10-10-10' 습관을 제안합니다!</p>
+                     <div class="space-y-4">
+                        <p><strong>Q.</strong> 하루 3번, 10분씩 주님과 대화하는 '10-10-10' 계획, 실천할 수 있을까요? 어렵다면, 나에게 맞는 '5-5-5'나 '1-1-1' 계획을 세워본다면 어떨까요?</p>
+                        <textarea class="nes-textarea h-24" placeholder="나만의 기도 계획을 세워보세요."></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 삶의 다짐 -->
+        <section id="commitment">
+            <h2 class="text-3xl mb-6 text-center jua-font text-red-700">🏆 QUEST COMPLETE! 🏆</h2>
+             <div class="pixel-border">
+                <h3 class="text-2xl font-bold mb-4 jua-font text-center">나만의 '패치' 장착 계획 세우기</h3>
+                <p class="mb-4 text-center">이번 주, 장착할 패치를 선택하고 구체적인 실천 계획을 세워 퀘스트를 완료하세요!</p>
+                
+                <div class="mb-4 space-y-2">
+                    <label class="flex items-center gap-2 p-3 border-4 border-gray-600 rounded-lg has-[:checked]:bg-blue-100 has-[:checked]:border-blue-400">
+                        <input type="radio" name="patch-choice" value="예배하기" class="form-radio h-5 w-5 text-blue-600">
+                        <span class="jua-font text-lg">패치 1: 예배하기</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-3 border-4 border-gray-600 rounded-lg has-[:checked]:bg-green-100 has-[:checked]:border-green-400">
+                        <input type="radio" name="patch-choice" value="성경 읽기" class="form-radio h-5 w-5 text-green-600">
+                        <span class="jua-font text-lg">패치 2: 성경 읽기</span>
+                    </label>
+                     <label class="flex items-center gap-2 p-3 border-4 border-gray-600 rounded-lg has-[:checked]:bg-yellow-100 has-[:checked]:border-yellow-400">
+                        <input type="radio" name="patch-choice" value="기도하기" class="form-radio h-5 w-5 text-yellow-600">
+                        <span class="jua-font text-lg">패치 3: 기도하기</span>
+                    </label>
+                </div>
+
+                <textarea id="commitment-plan" class="nes-textarea h-28 mb-4" placeholder="구체적인 실천 계획 (언제, 어디서, 어떻게)"></textarea>
+                <button id="commit-btn" class="btn-pixel w-full text-lg">나의 모험 계획서 제출!</button>
+
+                <div id="commitment-card" class="hidden mt-8">
+                    <!-- 다짐 카드가 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </section>
+
     </div>
-    
-    <!-- 성경 구절 모달 -->
-    <div id="bible-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 p-4">
-        <div class="nes-card w-full max-w-md relative">
-            <button id="close-modal-btn" class="absolute -top-2 -right-2 h-8 w-8 bg-red-500 text-white font-bold rounded-full border-2 border-white">X</button>
-            <h3 id="bible-verse-title" class="font-game text-lg mb-4 text-yellow-300"></h3>
-            <p id="bible-verse-content" class="text-base leading-relaxed"></p>
-        </div>
-    </div>
 
-    <!-- 저장 완료 메시지 -->
-    <div id="save-message" class="hidden fixed bottom-5 right-5 bg-green-500 text-white font-bold p-4 rounded-lg shadow-lg">
-        <i class="fas fa-save mr-2"></i> 저장 완료!
-    </div>
-    
-    <!-- 커스텀 알림창 -->
-    <div id="custom-alert" class="hidden fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4">
-        <div class="nes-card bg-gray-800 p-6 rounded-lg shadow-lg text-center max-w-sm w-full">
-            <p id="custom-alert-message" class="mb-6 text-white"></p>
-            <button id="custom-alert-close" class="nes-btn">확인</button>
-        </div>
-    </div>
+    <script>
+        // --- 캐릭터 선택 스크립트 ---
+        const characterSelectors = document.querySelectorAll('.character-select-box');
+        let selectedCharacterSrc = 'https://storage.googleapis.com/gemini-prod/images/841005b6-7881-4235-98e9-53e722a46580.png'; // Default character
+        let selectedCharacterName = '용감한 용사';
+        characterSelectors[0].classList.add('selected'); // Select first one by default
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: "YOUR_API_KEY", authDomain: "YOUR_PROJECT_ID.firebaseapp.com", projectId: "YOUR_PROJECT_ID" };
-            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
-            const app = initializeApp(firebaseConfig);
-            const db = getFirestore(app);
-            const auth = getAuth(app);
-
-            let userId = null;
-            let currentStep = 1;
-
-            const BIBLE_VERSES = {
-                matthew1_23: { title: "마태복음 1:23", content: "보아라, 동정녀가 잉태하여 아들을 낳을 것이니, 그의 이름을 임마누엘이라고 할 것이다(임마누엘은 번역하면 '하나님이 우리와 함께 계시다'는 뜻이다)." },
-                john10_10: { title: "요한복음 10:10", content: "도둑은 다만 훔치고 죽이고 파괴하려고 오는 것뿐이다. 나는 양들이 생명을 얻고 또 더 넘치게 얻게 하려고 왔다." }
-            };
-
-            const characterCreation = document.getElementById('character-creation');
-            const mainContent = document.getElementById('main-content');
-            const startBtn = document.getElementById('start-btn');
-            const nicknameInput = document.getElementById('nickname');
-            const playerName = document.getElementById('player-name');
-            
-            const storyContainer = document.getElementById('story-container');
-            const bibleModal = document.getElementById('bible-modal');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            
-            const customAlert = document.getElementById('custom-alert');
-            const customAlertMessage = document.getElementById('custom-alert-message');
-            const customAlertClose = document.getElementById('custom-alert-close');
-            
-            const saveBtn = document.getElementById('save-btn');
-            const saveMessage = document.getElementById('save-message');
-
-            function showAlert(message) {
-                customAlertMessage.textContent = message;
-                customAlert.classList.remove('hidden');
-                customAlert.classList.add('flex');
-            }
-
-            customAlertClose.addEventListener('click', () => {
-                customAlert.classList.add('hidden');
-                customAlert.classList.remove('flex');
-            });
-
-            async function signInUser() {
-                try {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                } catch (error) {
-                    console.error("로그인 실패:", error);
-                    showAlert('로그인에 실패했습니다. 새로고침 후 다시 시도해주세요.');
+        characterSelectors.forEach(selector => {
+            selector.addEventListener('click', () => {
+                characterSelectors.forEach(s => s.classList.remove('selected'));
+                selector.classList.add('selected');
+                selectedCharacterSrc = selector.src;
+                selectedCharacterName = selector.dataset.charName;
+                const charIdInput = document.getElementById('char-id');
+                if(!charIdInput.value) {
+                    charIdInput.value = selectedCharacterName;
                 }
-            }
-
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    userId = user.uid;
-                    loadData();
-                }
-            });
-
-            signInUser();
-
-            function showStep(stepNumber) {
-                document.querySelectorAll('.story-step').forEach(step => step.classList.remove('active'));
-                const nextStep = document.querySelector(`.story-step[data-step="${stepNumber}"]`);
-                if (nextStep) {
-                    nextStep.classList.add('active');
-                    currentStep = stepNumber;
-                }
-            }
-
-            storyContainer.addEventListener('click', (e) => {
-                if (e.target.classList.contains('next-btn')) {
-                    showStep(currentStep + 1);
-                }
-                if (e.target.classList.contains('bible-verse-btn')) {
-                    const verseId = e.target.dataset.verseId;
-                    const verse = BIBLE_VERSES[verseId];
-                    document.getElementById('bible-verse-title').textContent = verse.title;
-                    document.getElementById('bible-verse-content').innerHTML = verse.content;
-                    bibleModal.classList.remove('hidden');
-                }
-                if (e.target.classList.contains('choice-btn')) {
-                    const isCorrect = e.target.dataset.correct === 'true';
-                    const feedbackEl = document.getElementById('choice-feedback');
-                    feedbackEl.classList.remove('hidden');
-                    if (isCorrect) {
-                        feedbackEl.textContent = "정답! 바로 그거야!";
-                        feedbackEl.className = "text-center mt-4 text-green-400 font-bold";
-                        setTimeout(() => showStep(currentStep + 1), 1500);
-                    } else {
-                        feedbackEl.textContent = "음... 조금 더 생각해볼까? 예배는 하나님과의 소통이 핵심이야!";
-                        feedbackEl.className = "text-center mt-4 text-red-400 font-bold";
-                    }
-                }
-            });
-            
-            closeModalBtn.addEventListener('click', () => bibleModal.classList.add('hidden'));
-
-            startBtn.addEventListener('click', () => {
-                const nick = nicknameInput.value.trim();
-                if (nick === '') {
-                    showAlert('용사님의 이름을 알려주세요!');
-                    return;
-                }
-                playerName.textContent = nick;
-                characterCreation.classList.add('hidden');
-                mainContent.classList.remove('hidden');
-                saveData(); 
-            });
-
-            const fieldIds = ['nickname', 'q1-1', 'q1-2', 'q1-3'];
-
-            async function loadData() {
-                if (!userId) return;
-                const docRef = doc(db, `artifacts/${appId}/users/${userId}/pureun-nara-guide`, "data");
-                try {
-                    const docSnap = await getDoc(docRef);
-                    if (docSnap.exists()) {
-                        const data = docSnap.data();
-                        fieldIds.forEach(id => {
-                            const element = document.getElementById(id);
-                            if (element && data[id]) element.value = data[id];
-                        });
-                        if (data.nickname) {
-                            nicknameInput.value = data.nickname;
-                            playerName.textContent = data.nickname;
-                            characterCreation.classList.add('hidden');
-                            mainContent.classList.remove('hidden');
-                        }
-                    }
-                } catch (error) {
-                    console.error("데이터 로딩 오류:", error);
-                }
-            }
-
-            async function saveData() {
-                if (!userId) {
-                    showAlert("로그인 정보가 없습니다. 다시 시도해주세요.");
-                    return;
-                }
-                const dataToSave = {};
-                fieldIds.forEach(id => {
-                    const element = document.getElementById(id);
-                    if (element) dataToSave[id] = element.value;
-                });
-
-                try {
-                    const docRef = doc(db, `artifacts/${appId}/users/${userId}/pureun-nara-guide`, "data");
-                    await setDoc(docRef, dataToSave, { merge: true });
-                    saveMessage.classList.remove('hidden');
-                    setTimeout(() => saveMessage.classList.add('hidden'), 2000);
-                } catch (error) {
-                    console.error("데이터 저장 오류: ", error);
-                    showAlert("저장에 실패했습니다. 인터넷 연결을 확인해주세요.");
-                }
-            }
-            
-            saveBtn.addEventListener('click', () => {
-                saveData();
-                showAlert("저장 완료! 다음 모험도 기대해줘!");
             });
         });
+
+        // --- 탭 스크립트 ---
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                tabContents.forEach(content => content.classList.add('hidden'));
+                const targetTab = document.getElementById(button.dataset.tab);
+                targetTab.classList.remove('hidden');
+            });
+        });
+
+        // --- '용특새' 버튼 스크립트 ---
+        const yongteuksaeBtn = document.getElementById('yongteuksae-btn');
+        const yongteuksaeDetails = document.getElementById('yongteuksae-details');
+        yongteuksaeBtn.addEventListener('click', () => {
+            yongteuksaeDetails.classList.toggle('hidden');
+        });
+
+        // --- 삶의 다짐 스크립트 ---
+        const commitBtn = document.getElementById('commit-btn');
+        const commitmentCard = document.getElementById('commitment-card');
+        const commitmentPlan = document.getElementById('commitment-plan');
+        const charIdInput = document.getElementById('char-id');
+
+        commitBtn.addEventListener('click', () => {
+            const selectedPatch = document.querySelector('input[name="patch-choice"]:checked');
+            const planText = commitmentPlan.value.trim();
+            const charName = charIdInput.value.trim() || selectedCharacterName;
+
+            if (!selectedPatch) {
+                alert('장착할 패치를 선택해주세요!');
+                return;
+            }
+            if (!planText) {
+                alert('구체적인 실천 계획을 적어주세요!');
+                return;
+            }
+
+            commitmentCard.innerHTML = `
+                <div class="border-4 border-dashed border-yellow-500 bg-yellow-50 p-6 rounded-lg shadow-inner fade-in">
+                    <h4 class="text-2xl font-bold text-center mb-4 jua-font text-yellow-800">📜 ${charName}의 모험 계획서 📜</h4>
+                    <div class="flex flex-col sm:flex-row items-center gap-6">
+                        <img src="${selectedCharacterSrc}" alt="선택한 캐릭터" class="w-24 h-24 rounded-full border-4 border-yellow-300 bg-yellow-100">
+                        <div class="flex-1 text-center sm:text-left">
+                            <p class="text-lg">이번 주 장착할 핵심 패치는...</p>
+                            <p class="text-2xl font-bold text-blue-600 jua-font py-2 px-4 bg-blue-100 rounded-full inline-block">${selectedPatch.value}</p>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <p class="font-bold mb-2">🎯 구체적인 실천 계획:</p>
+                        <p class="bg-white p-4 rounded-md whitespace-pre-wrap">${planText}</p>
+                    </div>
+                    <p class="text-center mt-6 text-gray-600 font-bold">푸른바람과 함께, 모험 시작! 💪</p>
+                </div>
+            `;
+            commitmentCard.classList.remove('hidden');
+        });
     </script>
+
 </body>
 </html>
