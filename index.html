@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="푸른바람 퀘스트">
+    <title>푸른바람 퀘스트 - 모바일</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', '맑은 고딕', sans-serif;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .mobile-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .mobile-header h1 {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+        
+        .mobile-header .subtitle {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .share-bar {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .share-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .room-display {
+            font-size: 0.8em;
+            color: #333;
+            font-weight: bold;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0;
+            background: white;
+            min-height: calc(100vh - 60px);
+        }
+        
+        .section {
+            padding: 15px 10px;
+            margin: 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .player-info {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .info-item {
+            margin-bottom: 10px;
+        }
+        
+        .info-item label {
+            display: block;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            background: white;
+            color: #333;
+            transition: border-color 0.3s;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .shared-input {
+            border-color: #4facfe;
+            background: rgba(79, 172, 254, 0.05);
+        }
+        
+        .mission-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .objectives {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .objectives li {
+            background: rgba(255,255,255,0.8);
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .objectives li:active {
+            transform: scale(0.98);
+        }
+        
+        .game-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .mini-game {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #e9ecef;
+        }
+        
+        .mini-game h4 {
+            color: #e17055;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        
+        .game-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .game-card {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            text-align: center;
+        }
+        
+        .game-card strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+        
+        .stat-container {
+            margin: 15px 0;
+        }
+        
+        .stat-item {
+            margin: 15px 0;
+        }
+        
+        .stat-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .stat-bar {
+            background: #e9ecef;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .stat-fill {
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 30px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #e9ecef;
+            border-radius: 15px;
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .patch-card {
+            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            color: white;
+        }
+        
+        .patch-card.patch-2 {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+        
+        .patch-card.patch-3 {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+        
+        .patch-title {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .verse-box {
+            background: rgba(255,255,255,0.2);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #fff;
+        }
+        
+        .inline-input {
+            background: rgba(255,255,255,0.9);
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 4px;
+            padding: 2px 6px;
+            margin: 0 2px;
+            color: #333;
+            font-size: 0.9em;
+        }
+        
+        .armor-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .armor-piece {
+            background: rgba(255,255,255,0.2);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .time-system {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+        
+        .time-slot {
+            background: rgba(255,255,255,0.8);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            color: #333;
+        }
+        
+        .time-slot h4 {
+            color: #e84393;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        .checklist {
+            list-style: none;
+            margin: 8px 0;
+        }
+        
+        .checklist li {
+            margin: 6px 0;
+            padding: 8px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .boss-battle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .boss-hp {
+            background: rgba(255,255,255,0.2);
+            height: 25px;
+            border-radius: 12px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .boss-hp-fill {
+            background: linear-gradient(90deg, #ff6b6b, #ee5a24);
+            height: 100%;
+            width: 100%;
+            border-radius: 12px;
+            animation: damage 2s infinite;
+        }
+        
+        @keyframes damage {
+            0%, 100% { width: 100%; }
+            50% { width: 85%; }
+        }
+        
+        .weapon-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .weapon {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .weapon:active {
+            transform: scale(0.95);
+        }
+        
+        .challenge-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .challenge-day {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+            border-left: 4px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .xp-counter {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .achievement-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .reflection-section {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .reflection-item {
+            margin: 12px 0;
+        }
+        
+        .reflection-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .textarea-field {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            background: white;
+            color: #333;
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .textarea-field:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .final-message {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            border-radius: 12px;
+            margin: 15px 0;
+        }
+        
+        .final-message h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+        
+        .btn:active {
+            transform: scale(0.95);
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin: 8px 0;
+        }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+        
+        .progress-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            margin: 20px 0;
+        }
+        
+        /* 터치 피드백 개선 */
+        .touch-feedback {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .touch-feedback::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+        
+        .touch-feedback:active::before {
+            width: 100px;
+            height: 100px;
+        }
+        
+        /* 스크롤 최적화 */
+        .container {
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* 입력 필드 확대 방지 */
+        .input-field, .textarea-field {
+            font-size: 16px;
+        }
+        
+        /* 안전 영역 대응 */
+        .mobile-header {
+            padding-top: calc(env(safe-area-inset-top) + 15px);
+        }
+        
+        .container {
+            padding-bottom: calc(env(safe-area-inset-bottom) + 20px);
+        }
+        
+        /* 다크모드 지원 */
+        @media (prefers-color-scheme: dark) {
+            .input-field, .textarea-field {
+                background: #2d3748;
+                color: white;
+                border-color: #4a5568;
+            }
+            
+            .game-card {
+                background: #2d3748;
+                color: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-header">
+        <h1>🎮 푸른바람 퀘스트</h1>
+        <p class="subtitle">📖 QUEST 1: 패치 시스템</p>
+    </div>
+
+    <div class="share-bar">
+        <button class="share-btn touch-feedback" onclick="createRoom()">📝 방 만들기</button>
+        <button class="share-btn touch-feedback" onclick="joinRoom()">🔗 참여하기</button>
+        <div class="room-display" id="roomDisplay">개인 모드</div>
+    </div>
+
+    <div class="container">
+        <!-- 플레이어 정보 -->
+        <div class="section">
+            <div class="player-info">
+                <h3 class="section-title">⚔️ 플레이어 정보</h3>
+                <div class="info-item">
+                    <label>이름:</label>
+                    <input type="text" class="input-field" id="playerName" placeholder="이름을 입력하세요">
+                </div>
+                <div class="info-item">
+                    <label>소속:</label>
+                    <input type="text" class="input-field" id="guildName" placeholder="교회/모임 이름">
+                </div>
+                <div class="info-item">
+                    <label>시작일:</label>
+                    <input type="date" class="input-field" id="startDate">
+                </div>
+            </div>
+        </div>
+
+        <!-- 미션 목표 -->
+        <div class="section">
+            <div class="mission-box">
+                <h3 class="section-title">🎯 미션 목표</h3>
+                <ul class="objectives">
+                    <li class="touch-feedback">☐ 패치 시스템 이해하기</li>
+                    <li class="touch-feedback">☐ 3가지 필수 패치 습득하기</li>
+                    <li class="touch-feedback">☐ 개인 맞춤형 전략 수립하기</li>
+                    <li class="touch-feedback">☐ 첫 번째 패치 활성화하기</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 아이스브레이크 -->
+        <div class="section">
+            <div class="game-section">
+                <h3 class="section-title">🎮 아이스브레이크</h3>
+                
+                <div class="mini-game">
+                    <h4>🎲 패치 매칭 게임</h4>
+                    <p>상황에 맞는 패치를 선택하세요!</p>
+                    
+                    <div class="game-grid">
+                        <div class="game-card">
+                            <strong>상황 A</strong>
+                            <p>시험 스트레스로 머리가 복잡해요</p>
+                            <input type="text" class="input-field" id="matchA" placeholder="답: ①②③④">
+                        </div>
+                        <div class="game-card">
+                            <strong>상황 B</strong>
+                            <p>친구들과 싸워서 마음이 아파요</p>
+                            <input type="text" class="input-field" id="matchB" placeholder="답: ①②③④">
+                        </div>
+                        <div class="game-card">
+                            <strong>상황 C</strong>
+                            <p>미래가 불안하고 걱정돼요</p>
+                            <input type="text" class="input-field" id="matchC" placeholder="답: ①②③④">
+                        </div>
+                        <div class="game-card">
+                            <strong>상황 D</strong>
+                            <p>하루 종일 무기력하고 의욕이 없어요</p>
+                            <input type="text" class="input-field" id="matchD" placeholder="답: ①②③④">
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.8); padding: 10px; border-radius: 8px; margin-top: 10px;">
+                        <strong>💊 패치 옵션:</strong><br>
+                        ① 기도 패치 ② 성경 패치<br>
+                        ③ 예배 패치 ④ 올인원 패치
+                    </div>
+                </div>
+
+                <div class="mini-game">
+                    <h4>🎲 현재 스탯 체크</h4>
+                    <div class="stat-container">
+                        <div class="stat-item">
+                            <label class="stat-label">⚔️ 예배 참여도</label>
+                            <div class="stat-bar">
+                                <div class="stat-fill" id="worship-fill" style="width: 30%"></div>
+                            </div>
+                            <input type="range" class="slider" min="0" max="10" value="3" id="worship-stat">
+                        </div>
+                        
+                        <div class="stat-item">
+                            <label class="stat-label">📖 성경 읽기</label>
+                            <div class="stat-bar">
+                                <div class="stat-fill" id="bible-fill" style="width: 20%"></div>
+                            </div>
+                            <input type="range" class="slider" min="0" max="10" value="2" id="bible-stat">
+                        </div>
+                        
+                        <div class="stat-item">
+                            <label class="stat-label">🙏 기도 생활</label>
+                            <div class="stat-bar">
+                                <div class="stat-fill" id="prayer-fill" style="width: 40%"></div>
+                            </div>
+                            <input type="range" class="slider" min="0" max="10" value="4" id="prayer-stat">
+                        </div>
+                        
+                        <div class="stat-item">
+                            <label class="stat-label">💪 신앙 열정</label>
+                            <div class="stat-bar">
+                                <div class="stat-fill" id="passion-fill" style="width: 50%"></div>
+                            </div>
+                            <input type="range" class="slider" min="0" max="10" value="5" id="passion-stat">
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 15px;">
+                        <label><strong>💡 가장 업그레이드하고 싶은 스탯:</strong></label>
+                        <input type="text" class="input-field" id="upgrade-want" placeholder="답을 입력하세요">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- 패치 1: 예배하기 -->
+        <div class="section">
+            <div class="patch-card">
+                <h3 class="patch-title">🏛️ 패치 1: 예배하기</h3>
+                <p>"하나님을 만나는 공식 채널"</p>
+                
+                <div class="verse-box">
+                    <strong>📖 마태복음 1:22-23</strong><br><br>
+                    "이 모든 일이 일어난 것은... 그의 이름을 
+                    <input type="text" class="inline-input" id="verse4" placeholder="임마누엘"> 
+                    이라고 할 것이다<br>
+                    (임마누엘은 '<input type="text" class="inline-input" id="verse5" placeholder="하나님이 우리와 함께 계시다" style="width: 200px;>'는 뜻)"
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; margin: 10px 0;">
+                    <strong>🔥 예수님의 목적</strong><br>
+                    1. 우리가 <input type="text" class="inline-input" id="purpose1" placeholder="생명">을 얻게 하려고<br>
+                    2. "<input type="text" class="inline-input" id="purpose2" placeholder="더 넘치게">" 누리며 살게 하려고
+                </div>
+                
+                <div class="armor-grid">
+                    <div class="armor-piece">
+                        <div style="font-size: 2em;">🔥</div>
+                        <strong>용 헬멧</strong><br>
+                        "당신은 <input type="text" class="inline-input" id="armor1" placeholder="용납">되었습니다"
+                    </div>
+                    <div class="armor-piece">
+                        <div style="font-size: 2em;">⭐</div>
+                        <strong>특 갑옷</strong><br>
+                        "당신은 <input type="text" class="inline-input" id="armor2" placeholder="특별한">존재입니다"
+                    </div>
+                    <div class="armor-piece">
+                        <div style="font-size: 2em;">🤝</div>
+                        <strong>새 방패</strong><br>
+                        "당신은 <input type="text" class="inline-input" id="armor3" placeholder="새로운 공동체">에 속했습니다"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 패치 2: 성경읽기 -->
+        <div class="section">
+            <div class="patch-card patch-2">
+                <h3 class="patch-title">📚 패치 2: 성경읽기</h3>
+                <p>"푸른바람의 냉장고"</p>
+                
+                <div class="verse-box">
+                    <strong>🍯 요한복음 15장 암호 해독:</strong><br><br>
+                    농부 = <input type="text" class="inline-input" id="farmer" placeholder="하나님"><br>
+                    나무 = <input type="text" class="inline-input" id="tree" placeholder="예수님"><br>
+                    가지 = <input type="text" class="inline-input" id="branch" placeholder="우리"><br><br>
+                    🎯 미션: 나무에 <input type="text" class="inline-input" id="mission1" placeholder="머물러"> 있기
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; margin: 10px 0;">
+                    <strong>Q: 성경읽기는 의무? 특권?</strong><br><br>
+                    A: <input type="text" class="inline-input" id="duty1" placeholder="의무">이자 
+                    <input type="text" class="inline-input" id="privilege1" placeholder="특권">, 
+                    결국은 <input type="text" class="inline-input" id="finally1" placeholder="특권">!
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <strong>📝 내가 지금 필요한 성경 아이템:</strong>
+                    <input type="text" class="input-field" id="needed-item" placeholder="예: 시편 (분노할 때), 잠언 (지혜가 필요할 때)">
+                </div>
+            </div>
+        </div>
+
+        <!-- 패치 3: 기도하기 -->
+        <div class="section">
+            <div class="patch-card patch-3">
+                <h3 class="patch-title">🙏 패치 3: 기도하기</h3>
+                <p>"신에게 빨대 꽂기"</p>
+                
+                <div class="verse-box">
+                    <strong>🌱 농부-나무-가지 시스템:</strong><br><br>
+                    👨‍🌾 농부 = <input type="text" class="inline-input" id="farmer2" placeholder="하나님"><br>
+                    🌳 나무 = <input type="text" class="inline-input" id="tree2" placeholder="예수님"><br>
+                    🌿 가지 = <input type="text" class="inline-input" id="branch2" placeholder="우리"><br><br>
+                    🥤 빨대 = <input type="text" class="inline-input" id="straw" placeholder="기도">
+                </div>
+                
+                <div class="time-system">
+                    <h4>⏰ 10-10-10 시간 관리</h4>
+                    <div class="time-slot">
+                        <h4>🌅 모닝 패치 (10분)</h4>
+                        <ul class="checklist">
+                            <li><input type="checkbox" class="checkbox" id="morning1"> 하나님께 인사하기</li>
+                            <li><input type="checkbox" class="checkbox" id="morning2"> "오늘도 말씀해주세요" 기도</li>
+                            <li><input type="checkbox" class="checkbox" id="morning3"> 성경 읽기</li>
+                            <li><input type="checkbox" class="checkbox" id="morning4"> 기타: <input type="text" class="input-field" id="morning-extra" placeholder="추가 계획" style="margin-top: 5px;"></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="time-slot">
+                        <h4>🌞 점심 패치 (10분)</h4>
+                        <ul class="checklist">
+                            <li><input type="checkbox" class="checkbox" id="lunch1"> 그분 목소리에 귀 기울이기</li>
+                            <li><input type="checkbox" class="checkbox" id="lunch2"> "하나님, 도와주세요" 기도</li>
+                            <li><input type="checkbox" class="checkbox" id="lunch3"> 자연과 함께 대화하기</li>
+                            <li><input type="checkbox" class="checkbox" id="lunch4"> 기타: <input type="text" class="input-field" id="lunch-extra" placeholder="추가 계획" style="margin-top: 5px;"></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="time-slot">
+                        <h4>🌙 이브닝 패치 (10분)</h4>
+                        <ul class="checklist">
+                            <li><input type="checkbox" class="checkbox" id="evening1"> 하루 감사 기도</li>
+                            <li><input type="checkbox" class="checkbox" id="evening2"> 기도 일기 쓰기</li>
+                            <li><input type="checkbox" class="checkbox" id="evening3"> 말씀 묵상</li>
+                            <li><input type="checkbox" class="checkbox" id="evening4"> 기타: <input type="text" class="input-field" id="evening-extra" placeholder="추가 계획" style="margin-top: 5px;"></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; margin: 10px 0;">
+                    <strong>🧩 수고 순서 퍼즐</strong><br>
+                    열매를 맺기 위해 가장 수고하는 순서는?<br><br>
+                    🥇 1등: <input type="text" class="inline-input" id="work1" placeholder="농부"><br>
+                    🥈 2등: <input type="text" class="inline-input" id="work2" placeholder="나무"><br>
+                    🥉 3등: <input type="text" class="inline-input" id="work3" placeholder="가지">
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- 개인 맞춤 설정 -->
+        <div class="section">
+            <h3 class="section-title">🛠️ 나만의 패치 설정</h3>
+            
+            <div class="mini-game">
+                <h4>🎯 예배 패치 설정</h4>
+                <div class="info-item">
+                    <label>목표:</label>
+                    <input type="text" class="input-field" id="worship-goal" placeholder="예: 적극적으로 예배 참여하기">
+                </div>
+                <div class="info-item">
+                    <label>방법:</label>
+                    <input type="text" class="input-field" id="worship-method" placeholder="예: 메모하며 듣기">
+                </div>
+                <div class="info-item">
+                    <label>시간:</label>
+                    <input type="text" class="input-field" id="worship-time" placeholder="예: 주일 오전 11시">
+                </div>
+            </div>
+
+            <div class="mini-game">
+                <h4>📖 성경 패치 설정</h4>
+                <div class="info-item">
+                    <label>목표:</label>
+                    <input type="text" class="input-field" id="bible-goal" placeholder="예: 매일 성경 1장 읽기">
+                </div>
+                <div class="info-item">
+                    <label>방법:</label>
+                    <input type="text" class="input-field" id="bible-method" placeholder="예: 요한복음부터 시작">
+                </div>
+                <div class="info-item">
+                    <label>시간:</label>
+                    <input type="text" class="input-field" id="bible-time" placeholder="예: 아침 7시">
+                </div>
+            </div>
+
+            <div class="mini-game">
+                <h4>🙏 기도 패치 설정</h4>
+                <div class="info-item">
+                    <label>시간 선택:</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" name="prayer_time" id="prayer-10" value="10-10-10">
+                            <label for="prayer-10">10-10-10</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="prayer_time" id="prayer-5" value="5-5-5">
+                            <label for="prayer-5">5-5-5</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="prayer_time" id="prayer-1" value="1-1-1">
+                            <label for="prayer-1">1-1-1</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <label>알림 시간:</label>
+                    <input type="text" class="input-field" id="alarm-time" placeholder="예: 7시, 12시, 10시">
+                </div>
+                <div class="info-item">
+                    <label>장소:</label>
+                    <input type="text" class="input-field" id="prayer-place" placeholder="예: 방, 학교, 침대">
+                </div>
+            </div>
+        </div>
+
+        <!-- 보스 대결 -->
+        <div class="section">
+            <div class="boss-battle">
+                <h3>👹 최종 보스 대결</h3>
+                <div style="font-size: 1.1em; margin-bottom: 15px;">
+                    <strong>보스:</strong> "포기하고 싶은 마음"
+                </div>
+                
+                <div>
+                    <strong>HP:</strong>
+                    <div class="boss-hp">
+                        <div class="boss-hp-fill"></div>
+                    </div>
+                    <small>특수 공격: 핑계 만들기, 미루기, 까먹기</small>
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <strong>🗡️ 내 무기 선택:</strong>
+                    <div class="weapon-grid">
+                        <div class="weapon touch-feedback">
+                            <div style="font-size: 1.5em;">⚔️</div>
+                            <strong>예배 패치 검</strong>
+                            <input type="checkbox" class="checkbox" id="weapon1">
+                        </div>
+                        <div class="weapon touch-feedback">
+                            <div style="font-size: 1.5em;">🛡️</div>
+                            <strong>성경 패치 방패</strong>
+                            <input type="checkbox" class="checkbox" id="weapon2">
+                        </div>
+                        <div class="weapon touch-feedback">
+                            <div style="font-size: 1.5em;">🔮</div>
+                            <strong>기도 패치 마법</strong>
+                            <input type="checkbox" class="checkbox" id="weapon3">
+                        </div>
+                        <div class="weapon touch-feedback">
+                            <div style="font-size: 1.5em;">💥</div>
+                            <strong>올인원 콤보</strong>
+                            <input type="checkbox" class="checkbox" id="weapon4">
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <strong>💪 승리 전략:</strong>
+                    <div style="margin-top: 10px;">
+                        <input type="text" class="input-field" id="strategy1" placeholder="1. 전략을 입력하세요" style="margin-bottom: 8px;">
+                        <input type="text" class="input-field" id="strategy2" placeholder="2. 전략을 입력하세요" style="margin-bottom: 8px;">
+                        <input type="text" class="input-field" id="strategy3" placeholder="3. 전략을 입력하세요">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7일 도전 -->
+        <div class="section">
+            <div class="challenge-section">
+                <h3 class="section-title">🗓️ 7일 연속 퀘스트</h3>
+                
+                <div class="challenge-day">
+                    <input type="checkbox" class="checkbox" id="day1">
+                    <div>
+                        <strong>DAY 1:</strong> 패치 활성화 - 내가 선택한 시간에 기도해보기
+                        <div style="color: #667eea; font-size: 0.9em;">XP +10</div>
+                    </div>
+                </div>
+                
+                <div class="challenge-day">
+                    <input type="checkbox" class="checkbox" id="day2">
+                    <div>
+                        <strong>DAY 2:</strong> 첫 번째 성경 읽기 - 성경 한 장 읽고 한 줄 메모하기
+                        <div style="color: #667eea; font-size: 0.9em;">XP +15</div>
+                    </div>
+                </div>
+                
+                <div class="challenge-day">
+                    <input type="checkbox" class="checkbox" id="day3">
+                    <div>
+                        <strong>DAY 3:</strong> 예배 업그레이드 - 예배 시간에 적극 참여하기
+                        <div style="color: #667eea; font-size: 0.9em;">XP +20</div>
+                    </div>
+                </div>
+                
+                <div class="challenge-day">
+                    <input type="checkbox" class="checkbox" id="day4">
+                    <div>
+                        <strong>DAY 4:</strong> 자연과 함께 - 자연을 보며 하나님께 말씀드리기
+                        <div style="color: #667eea; font-size: 0.9em;">XP +10</div>
+                    </div>
+                </div>
+                
+                <div class="challenge-day">
+                    <input type="checkbox" class="checkbox" id="day5">
+                    <div>
+                        <strong>DAY 5:</strong> 시간 관리 도전 - 10-10-10 중 하나 완주하기
+                        <div style="color: #667eea; font-size: 0.9em;">XP +25</div>
+                    </div>
+                </div>
+                
+                <div class="challenge-day">
+                    <input type="checkbox" class="checkbox" id="day6">
+                    <div>
+                        <strong>DAY 6:</strong> 길드 활동 - 친구와 오늘 배운 내용 나누기
+                        <div style="color: #667eea; font-size: 0.9em;">XP +15</div>
+                    </div>
+                </div>
+                
+                <div class="challenge-day">
+                    <input type="checkbox" class="checkbox" id="day7">
+                    <div>
+                        <strong>DAY 7:</strong> 후기 작성 - 일주일 경험 정리하기
+                        <div style="color: #667eea; font-size: 0.9em;">XP +30</div>
+                    </div>
+                </div>
+                
+                <div class="xp-counter">
+                    🎯 총 XP: <span id="total-xp">0</span>/125
+                </div>
+            </div>
+        </div>
+
+        <!-- 개인 소감 -->
+        <div class="section">
+            <div class="reflection-section">
+                <h3 class="section-title">📝 개인 소감</h3>
+                
+                <div class="reflection-item">
+                    <label class="reflection-label">🌟 오늘의 MVP (가장 인상 깊었던 순간):</label>
+                    <textarea class="textarea-field" id="mvp-moment" placeholder="자세히 써보세요..."></textarea>
+                </div>
+                
+                <div class="reflection-item">
+                    <label class="reflection-label">🎯 내가 꼭 기억하고 싶은 한 문장:</label>
+                    <input type="text" class="input-field" id="remember-sentence" placeholder="가장 마음에 와닿은 말씀이나 문장을 써보세요">
+                </div>
+                
+                <div class="reflection-item">
+                    <label class="reflection-label">🔥 다음 주까지 꼭 실천할 것:</label>
+                    <input type="text" class="input-field" id="action1" placeholder="1. 구체적인 실천 계획" style="margin-bottom: 8px;">
+                    <input type="text" class="input-field" id="action2" placeholder="2. 구체적인 실천 계획" style="margin-bottom: 8px;">
+                    <input type="text" class="input-field" id="action3" placeholder="3. 구체적인 실천 계획">
+                </div>
+                
+                <div class="reflection-item">
+                    <label class="reflection-label">💌 미래의 나에게 하고 싶은 말:</label>
+                    <textarea class="textarea-field" id="future-message" placeholder="한 달 후, 일 년 후의 나에게 하고 싶은 말을 써보세요..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- 최종 메시지 -->
+        <div class="section">
+            <div class="final-message">
+                <h2>🎮 QUEST 1 완료! 🎮</h2>
+                <p>✨ 축하합니다! 첫 번째 퀘스트를 완료했습니다! ✨</p>
+                
+                <div style="margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                    <h3>🎯 "이 패치들은 특권입니다!"</h3>
+                    <p>💎 푸른바람의 나라 사람들에게 주어진<br>
+                    거부할 수 없는 특권을 누리며<br>
+                    예수님과 함께 걸어가세요!</p>
+                </div>
+                
+                <p style="font-style: italic; margin-top: 20px;">
+                    "당신을 위해 이미 목숨을 내놓으신 하나님이<br>
+                    여러분과 함께 하십니다."
+                </p>
+                
+                <button class="btn touch-feedback">🚀 다음 퀘스트로!</button>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <div style="background: #2d3436; color: white; padding: 20px; text-align: center; margin-top: 0;">
+            <p style="font-size: 0.9em;"><strong>📚 참고:</strong> 《푸른바람이 너와 함께해》(서지성 저)</p>
+            <p style="font-size: 0.8em; margin-top: 8px;">🎮 v2.0 Mobile | 2024</p>
+        </div>
+    </div>
+
+    <!-- 진행도 표시 -->
+    <div class="progress-indicator" id="progressIndicator">0%</div>
+
+    <!-- 토스트 알림 -->
+    <div class="toast" id="toast"></div>
+
+    <!-- 로딩 -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>동기화 중...</p>
+    </div>
+
+    <script>
+        // 공유 시스템 변수
+        let currentRoom = null;
+        let isHost = false;
+        let syncInterval = null;
+
+        // 로컬 스토리지 키
+        const STORAGE_KEY = 'bluewind_mobile_quest1';
+
+        // 모든 입력 필드 ID 리스트
+        const inputFields = [
+            'playerName', 'guildName', 'startDate', 'matchA', 'matchB', 'matchC', 'matchD',
+            'upgrade-want', 'verse4', 'verse5', 'purpose1', 'purpose2', 'armor1', 'armor2', 'armor3',
+            'farmer', 'tree', 'branch', 'mission1', 'duty1', 'privilege1', 'finally1',
+            'needed-item', 'farmer2', 'tree2', 'branch2', 'straw', 'morning-extra', 'lunch-extra',
+            'evening-extra', 'work1', 'work2', 'work3', 'worship-goal', 'worship-method',
+            'worship-time', 'bible-goal', 'bible-method', 'bible-time', 'alarm-time', 'prayer-place',
+            'strategy1', 'strategy2', 'strategy3', 'mvp-moment', 'remember-sentence',
+            'action1', 'action2', 'action3', 'future-message'
+        ];
+
+        // 체크박스 필드 ID 리스트
+        const checkboxFields = [
+            'morning1', 'morning2', 'morning3', 'morning4', 'lunch1', 'lunch2', 'lunch3', 'lunch4',
+            'evening1', 'evening2', 'evening3', 'evening4', 'weapon1', 'weapon2', 'weapon3', 'weapon4',
+            'day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7'
+        ];
+
+        // 라디오 버튼 필드
+        const radioFields = ['prayer_time'];
+
+        // 슬라이더 필드
+        const sliderFields = ['worship-stat', 'bible-stat', 'prayer-stat', 'passion-stat'];
+
+        // 토스트 알림 표시
+        function showToast(message, duration = 3000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        // 방 만들기
+        function createRoom() {
+            const roomCode = Math.random().toString(36).substr(2, 6).toUpperCase();
+            currentRoom = roomCode;
+            isHost = true;
+            
+            document.getElementById('roomDisplay').textContent = `방: ${roomCode}`;
+            enableSharing();
+            showToast(`방이 생성되었습니다! 코드: ${roomCode}`);
+            
+            // 정기적으로 데이터 저장
+            syncInterval = setInterval(syncData, 1000);
+        }
+
+        // 방 참여하기
+        function joinRoom() {
+            const roomCode = prompt('방 코드를 입력하세요:');
+            if (roomCode) {
+                currentRoom = roomCode.toUpperCase();
+                isHost = false;
+                
+                document.getElementById('roomDisplay').textContent = `방: ${currentRoom}`;
+                enableSharing();
+                showToast(`방에 참여했습니다! 코드: ${currentRoom}`);
+                
+                // 정기적으로 데이터 로드
+                syncInterval = setInterval(loadSharedData, 1000);
+            }
+        }
+
+        // 공유 모드 활성화
+        function enableSharing() {
+            // 모든 입력 필드에 공유 스타일 적용
+            [...inputFields, ...checkboxFields, ...sliderFields].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.classList.add('shared-input');
+                    element.addEventListener('input', syncData);
+                    element.addEventListener('change', syncData);
+                }
+            });
+
+            // 라디오 버튼
+            radioFields.forEach(name => {
+                const elements = document.querySelectorAll(`input[name="${name}"]`);
+                elements.forEach(element => {
+                    element.addEventListener('change', syncData);
+                });
+            });
+        }
+
+        // 데이터 동기화
+        function syncData() {
+            if (!currentRoom) return;
+
+            const data = gatherAllData();
+            localStorage.setItem(`${STORAGE_KEY}_${currentRoom}`, JSON.stringify(data));
+        }
+
+        // 모든 데이터 수집
+        function gatherAllData() {
+            const data = {};
+            
+            // 텍스트 입력 필드
+            inputFields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    data[id] = element.value;
+                }
+            });
+
+            // 체크박스 필드
+            checkboxFields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    data[id] = element.checked;
+                }
+            });
+
+            // 라디오 버튼
+            radioFields.forEach(name => {
+                const checked = document.querySelector(`input[name="${name}"]:checked`);
+                if (checked) {
+                    data[name] = checked.value;
+                }
+            });
+
+            // 슬라이더
+            sliderFields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    data[id] = element.value;
+                }
+            });
+
+            return data;
+        }
+
+        // 데이터 로드
+        function loadSharedData() {
+            if (!currentRoom) return;
+
+            const savedData = localStorage.getItem(`${STORAGE_KEY}_${currentRoom}`);
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                
+                // 텍스트 입력 필드 복원
+                inputFields.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element && data[id] !== undefined) {
+                        element.value = data[id];
+                    }
+                });
+
+                // 체크박스 필드 복원
+                checkboxFields.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element && data[id] !== undefined) {
+                        element.checked = data[id];
+                        updateCheckboxStyle(element);
+                    }
+                });
+
+                // 라디오 버튼 복원
+                radioFields.forEach(name => {
+                    if (data[name]) {
+                        const element = document.querySelector(`input[name="${name}"][value="${data[name]}"]`);
+                        if (element) {
+                            element.checked = true;
+                        }
+                    }
+                });
+
+                // 슬라이더 복원
+                sliderFields.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element && data[id] !== undefined) {
+                        element.value = data[id];
+                        updateStatBar(id, data[id]);
+                    }
+                });
+
+                // XP 업데이트
+                updateTotalXP();
+            }
+        }
+
+        // 스탯 바 업데이트
+        function updateStatBar(statId, value) {
+            const fillId = statId.replace('-stat', '-fill');
+            const fillBar = document.getElementById(fillId);
+            if (fillBar) {
+                fillBar.style.width = (value * 10) + '%';
+            }
+        }
+
+        // 체크박스 스타일 업데이트
+        function updateCheckboxStyle(checkbox) {
+            const li = checkbox.closest('li') || checkbox.closest('.challenge-day');
+            if (li) {
+                if (checkbox.checked) {
+                    li.style.background = 'rgba(76, 175, 80, 0.3)';
+                } else {
+                    li.style.background = '';
+                }
+            }
+        }
+
+        // 총 XP 업데이트
+        function updateTotalXP() {
+            const xpValues = [10, 15, 20, 10, 25, 15, 30];
+            let totalXP = 0;
+            
+            for (let i = 1; i <= 7; i++) {
+                const checkbox = document.getElementById(`day${i}`);
+                if (checkbox && checkbox.checked) {
+                    totalXP += xpValues[i - 1];
+                }
+            }
+            
+            document.getElementById('total-xp').textContent = totalXP;
+            updateProgressIndicator();
+        }
+
+        // 진행도 업데이트
+        function updateProgressIndicator() {
+            const totalFields = inputFields.length + checkboxFields.length;
+            let filledFields = 0;
+            
+            inputFields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element && element.value.trim() !== '') {
+                    filledFields++;
+                }
+            });
+            
+            checkboxFields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element && element.checked) {
+                    filledFields++;
+                }
+            });
+            
+            const progress = Math.round((filledFields / totalFields) * 100);
+            document.getElementById('progressIndicator').textContent = progress + '%';
+        }
+
+        // 초기화
+        function initialize() {
+            // 오늘 날짜 자동 설정
+            const today = new Date().toISOString().split('T')[0];
+            const startDateInput = document.getElementById('startDate');
+            if (startDateInput) {
+                startDateInput.value = today;
+            }
+            
+            // 이벤트 리스너 등록
+            
+            // 슬라이더 이벤트
+            sliderFields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', function() {
+                        updateStatBar(id, this.value);
+                        updateProgressIndicator();
+                    });
+                }
+            });
+
+            // 체크박스 이벤트
+            checkboxFields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('change', function() {
+                        updateCheckboxStyle(this);
+                        if (id.startsWith('day')) {
+                            updateTotalXP();
+                        }
+                        updateProgressIndicator();
+                    });
+                }
+            });
+
+            // 입력 필드 이벤트
+            inputFields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', updateProgressIndicator);
+                }
+            });
+
+            // 미션 목표 클릭 이벤트
+            document.querySelectorAll('.objectives li').forEach(item => {
+                item.addEventListener('click', function() {
+                    const checkbox = this.querySelector('input[type="checkbox"]') || 
+                                    document.createElement('input');
+                    if (!this.querySelector('input[type="checkbox"]')) {
+                        checkbox.type = 'checkbox';
+                        checkbox.className = 'checkbox';
+                        this.insertBefore(checkbox, this.firstChild);
+                    }
+                    checkbox.checked = !checkbox.checked;
+                    updateCheckboxStyle(checkbox);
+                    updateProgressIndicator();
+                });
+            });
+
+            // 초기 상태 업데이트
+            updateTotalXP();
+            updateProgressIndicator();
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('load', initialize);
+
+        // 페이지 벗어나기 전 데이터 저장
+        window.addEventListener('beforeunload', function() {
+            if (currentRoom) {
+                syncData();
+            }
+            if (syncInterval) {
+                clearInterval(syncInterval);
+            }
+        });
+
+        // 터치 피드백 개선
+        document.addEventListener('touchstart', function(e) {
+            if (e.target.classList.contains('touch-feedback')) {
+                e.target.style.transform = 'scale(0.95)';
+            }
+        });
+
+        document.addEventListener('touchend', function(e) {
+            if (e.target.classList.contains('touch-feedback')) {
+                setTimeout(() => {
+                    e.target.style.transform = '';
+                }, 150);
+            }
+        });
+
+        // 스크롤 시 헤더 숨기기/보이기
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const header = document.querySelector('.mobile-header');
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        // 인풋 포커스 시 키보드 대응
+        document.addEventListener('focusin', function(e) {
+            if (e.target.matches('.input-field, .textarea-field')) {
+                setTimeout(() => {
+                    e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }
+        });
+
+        // 서비스워커 등록 (PWA 지원)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(console.error);
+        }
+    </script>
+</body>
+</html>
+Commit message: 푸른바람 퀘스트 모바일 앱 추가
