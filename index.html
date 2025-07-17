@@ -1268,7 +1268,24 @@
         // 전역 공유 모드 자동 활성화
         function enableGlobalSharing() {
             // 모든 입력 필드에 공유 스타일 적용
-            [...inputFields, ...checkboxFields, ...sliderFields].forEach(id => {
+            inputFields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.classList.add('shared-input');
+                    element.addEventListener('input', syncGlobalData);
+                    element.addEventListener('change', syncGlobalData);
+                }
+            });
+
+            checkboxFields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.classList.add('shared-input');
+                    element.addEventListener('change', syncGlobalData);
+                }
+            });
+
+            sliderFields.forEach(id => {
                 const element = document.getElementById(id);
                 if (element) {
                     element.classList.add('shared-input');
@@ -1343,12 +1360,14 @@
             const savedData = localStorage.getItem(GLOBAL_STORAGE_KEY);
             if (savedData) {
                 const data = JSON.parse(savedData);
+                let hasChanges = false;
                 
                 // 텍스트 입력 필드 복원
                 inputFields.forEach(id => {
                     const element = document.getElementById(id);
                     if (element && data[id] !== undefined && element.value !== data[id]) {
                         element.value = data[id];
+                        hasChanges = true;
                     }
                 });
 
@@ -1358,15 +1377,18 @@
                     if (element && data[id] !== undefined && element.checked !== data[id]) {
                         element.checked = data[id];
                         updateCheckboxStyle(element);
+                        hasChanges = true;
                     }
                 });
 
                 // 라디오 버튼 복원
                 radioFields.forEach(name => {
                     if (data[name]) {
-                        const element = document.querySelector(`input[name="${name}"][value="${data[name]}"]`);
-                        if (element && !element.checked) {
-                            element.checked = true;
+                        const currentChecked = document.querySelector(`input[name="${name}"]:checked`);
+                        const shouldBeChecked = document.querySelector(`input[name="${name}"][value="${data[name]}"]`);
+                        if (shouldBeChecked && (!currentChecked || currentChecked.value !== data[name])) {
+                            shouldBeChecked.checked = true;
+                            hasChanges = true;
                         }
                     }
                 });
@@ -1378,11 +1400,14 @@
                         element.value = data[id];
                         updateStatBar(id, data[id]);
                         updateSliderValue(id, data[id]);
+                        hasChanges = true;
                     }
                 });
 
                 // XP 업데이트
-                updateTotalXP();
+                if (hasChanges) {
+                    updateTotalXP();
+                }
             }
         }
 
